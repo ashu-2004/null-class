@@ -1,0 +1,86 @@
+.comments_sub_form_comments {
+  display: flex;
+  width: 70%;
+}
+.comment_ibox {
+  width: 80%;
+  padding: 0.5%;
+  padding-left: 2%;
+  background-color: transparent;
+  border: 0;
+  color: wheat;
+  border-bottom: 2px solid grey;
+}
+.comment_add_btn_comments {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-bottom: 2px solid rgb(64, 64, 64);
+  background-color: transparent;
+  color: aliceblue;
+  font-size: large;
+  width: 20%;
+}
+
+.comment_add_btn_comments:hover {
+  border: 2px solid rgba(64, 64, 64, 0.05);
+  border-bottom: 2px solid rgb(64, 64, 64);
+  background-color: rgba(240, 248, 255, 0.05);
+}
+
+.display_comment_container {
+  padding: 1rem;
+}
+
+/** display comment **/
+
+.comment_body {
+  color: rgb(197, 197, 197);
+  margin: 0;
+  margin-top: 0.5rem;
+}
+.usercommented {
+  color: rgb(50, 50, 50);
+  margin: 0;
+}
+.EditDel_DisplayCommendt {
+  padding: 0.2rem;
+  margin: 0;
+  margin-bottom: 0.8rem;
+  color: rgba(44, 85, 209, 0.696);
+  cursor: pointer;
+}
+
+  .EditDel_DisplayCommendt i {
+    padding: 0.2rem;
+  }
+ 
+  .display-city-language{
+    display: flex;
+    /* justify-content: space-around; */
+    align-items: center;
+    /* text-decoration: none; */
+  }
+
+    
+.option{
+/* width: 82%; */
+/* padding: 8px 12px; */
+font-size: 1rem;
+color: rgba(44, 85, 209, 0.696);
+cursor: pointer;
+/* color: #282c3f; */
+/* background-color: #f8f8f8; */
+/* border: 1px solid #d4d4d4; */
+/* border-radius: 4px; */
+appearance: none;
+cursor: pointer;
+/* color: blue; */
+background: none;
+border: none;
+}
+
+.option:focus {
+outline: none;
+/* border-color: #4a90e2; */
+}
+
