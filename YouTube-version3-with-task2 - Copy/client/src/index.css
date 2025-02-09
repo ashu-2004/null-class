@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 5rem;
+}
+
+/* Light Theme */
+.white-theme {
+  background-color: white;
+  color: black;
+}
+
+/* Dark Theme */
+.dark-theme {
+  background-color: #181818;
+  color: white;
+}
+
+/* Adjust Navbar, Sidebar, and Other Elements */
+.white-theme .navbar,
+.white-theme .sidebar {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+.dark-theme .navbar,
+.dark-theme .sidebar {
+  background-color: #333;
+  color: white;
+}

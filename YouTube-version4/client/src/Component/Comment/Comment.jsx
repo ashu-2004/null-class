@@ -10,13 +10,11 @@ const Comment = ({ videoid }) => {
     const currentuser = useSelector(state => state.currentuserreducer);
     const commentlist = useSelector(state => state.commentreducer);
 
-    // Regular expression to match special characters (anything other than alphabets, numbers, and spaces)
     const specialCharacterRegex = /[^a-zA-Z0-9\s]/;
 
     const handleonsubmit = (e) => {
         e.preventDefault();
 
-        // Check if the comment contains special characters
         if (specialCharacterRegex.test(commenttext)) {
             alert("Please do not use special characters in your comment.");
             return;

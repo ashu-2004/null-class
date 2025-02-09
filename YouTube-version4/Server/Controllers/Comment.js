@@ -23,6 +23,16 @@ export const getcomment = async (req, res) => {
     }
 }
 
+export const getReaction=async(req,res)=>{
+    try {
+        const reactions = await comment.find()
+        res.status(200).send(reactions)
+    } catch (error) {
+        res.status(400).json(error.message)
+        return
+    }
+}
+
 export const deletecomment = async (req, res) => {
     const { id: _id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
@@ -54,6 +64,7 @@ export const editcomment = async (req, res) => {
         return
     }
 }
+
 export const updateReaction = async (req, res) => {
     const { id } = req.params;
     const { action, value } = req.body;

@@ -5,6 +5,7 @@ import { updateCommentReaction } from "../../action/comment";
 import { useSelector, useDispatch } from "react-redux";
 import { editcomment, deletecomment } from "../../action/comment";
 import { updateReaction } from "../../Api/index";
+import axios from 'axios';
 
 import {
   AiFillDislike,
@@ -26,15 +27,25 @@ const DisplayComment = ({
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [currentLanguage, setCurrentLanguage] = useState("en");
   const [city, setCity] = useState("");
-  const [likes, setLikes] = useState(
-    () => JSON.parse(localStorage.getItem(`likes-${cid}`)) || 0
-  );
-  const [dislikes, setDislikes] = useState(
-    () => JSON.parse(localStorage.getItem(`dislikes-${cid}`)) || 0
-  );
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
 
   const dispatch = useDispatch();
   const currentuser = useSelector((state) => state.currentuserreducer);
+
+  useEffect(() => {
+    const fetchReactions = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/comment/getReaction/${cid}`); // Fetch data
+        setLikes(response.data.likes);
+        setDislikes(response.data.dislikes);
+      } catch (error) {
+        console.error("Error fetching reactions:", error);
+      }
+    };
+
+    fetchReactions();
+  }, [cid]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (position) => {
@@ -89,13 +100,12 @@ const DisplayComment = ({
         }
         const data = await response.json();
   
-        const comment = data.data.find((item) => item._id === cid);
+        const comment = data.find((item) => item._id === cid);
   
         if (comment) {
           setLikes(comment.likes || 0);
           setDislikes(comment.dislikes || 0);
-          localStorage.setItem(`likes-${cid}`, JSON.stringify(comment.likes || 0));
-          localStorage.setItem(`dislikes-${cid}`, JSON.stringify(comment.dislikes || 0));
+         
         } else {
           console.error("Comment not found in the fetched data");
         }
@@ -109,6 +119,7 @@ const DisplayComment = ({
   
   const [likefill, setlikefill] = useState(false);
   const [dislikefill, setdislikefill] = useState(false);
+
 // const handleLikes = async () => {
 //   try {
 //     if (dislikefill) {
@@ -145,19 +156,18 @@ const DisplayComment = ({
 //     console.error("Error updating dislikes:", error);
 //   }
 // };
+
 const handleLikes = async () => {
   try {
     if (dislikefill) {
-      const response = await updateReaction(cid, "dislike", -1);
+      const response = await axios.put(`http://localhost:5000/comment/updateReaction/${cid}`, { action: "dislike", value: -1 });
       setDislikes(response.data.dislikes);
-      localStorage.setItem(`dislikes-${cid}`, JSON.stringify(response.data.dislikes));
       setdislikefill(false);
     }
 
     const action = likefill ? -1 : 1;
-    const response = await updateReaction(cid, "like", action);
+    const response = await axios.put(`http://localhost:5000/comment/updateReaction/${cid}`, { action: "like", value: action });
     setLikes(response.data.likes);
-    localStorage.setItem(`likes-${cid}`, JSON.stringify(response.data.likes));
     setlikefill(!likefill);
   } catch (error) {
     console.error("Error updating likes:", error);
@@ -167,22 +177,19 @@ const handleLikes = async () => {
 const handleDisLikes = async () => {
   try {
     if (likefill) {
-      const response = await updateReaction(cid, "like", -1);
+      const response = await axios.put(`http://localhost:5000/comment/updateReaction/${cid}`, { action: "like", value: -1 });
       setLikes(response.data.likes);
-      localStorage.setItem(`likes-${cid}`, JSON.stringify(response.data.likes));
       setlikefill(false);
     }
 
     const action = dislikefill ? -1 : 1;
-    const response = await updateReaction(cid, "dislike", action);
+    const response = await axios.put(`http://localhost:5000/comment/updateReaction/${cid}`, { action: "dislike", value: action });
     setDislikes(response.data.dislikes);
-    localStorage.setItem(`dislikes-${cid}`, JSON.stringify(response.data.dislikes));
     setdislikefill(!dislikefill);
   } catch (error) {
     console.error("Error updating dislikes:", error);
   }
 };
-
 
   return (
     <>

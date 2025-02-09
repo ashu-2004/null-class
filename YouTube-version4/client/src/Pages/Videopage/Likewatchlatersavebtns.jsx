@@ -44,7 +44,6 @@ const togglelikevideo=(e,lk)=>{
   if(currentuser){
       if(likebtn){
         setlikebtn(false);
-        
         dispatch(likevideo({id:vid,Like:lk-1}))
         dispatch(deletelikedvideo({videoid:vid,viewer:currentuser?.result?._id}))
       }else{
@@ -99,7 +98,7 @@ const toggledislikevideo=(e,lk)=>{
               <AiOutlineDislike size={22} className='btns_videoPage'/>
             </>
           )}
-          <b>DISLIKE</b>
+          <b>Dislike</b>
         </div>
         <div className="like_videoPage" onClick={(e)=>togglesavedvideo(e)}>
           {savevideo?(<>
